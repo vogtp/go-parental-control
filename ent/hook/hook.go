@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/vogtp/go-win-session/ent"
+	"github.com/vogtp/go-parental-control/ent"
 )
 
 // The ActivityFunc type is an adapter to allow the use of ordinary

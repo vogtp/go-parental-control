@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/vogtp/go-hcl"
-	"github.com/vogtp/go-win-session/ent"
-	"github.com/vogtp/go-win-session/ent/activity"
-	"github.com/vogtp/go-win-session/ent/day"
+	"github.com/vogtp/go-parental-control/ent"
+	"github.com/vogtp/go-parental-control/ent/activity"
+	"github.com/vogtp/go-parental-control/ent/day"
 )
 
 type UserClient struct {

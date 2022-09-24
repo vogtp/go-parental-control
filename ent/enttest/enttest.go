@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/vogtp/go-win-session/ent"
+	"github.com/vogtp/go-parental-control/ent"
 	// required by schema hooks.
-	_ "github.com/vogtp/go-win-session/ent/runtime"
+	_ "github.com/vogtp/go-parental-control/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/vogtp/go-win-session/ent/migrate"
+	"github.com/vogtp/go-parental-control/ent/migrate"
 )
 
 type (

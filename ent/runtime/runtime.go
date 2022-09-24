@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/vogtp/go-win-session/ent/runtime.go
+// The schema-stitching logic is generated in github.com/vogtp/go-parental-control/ent/runtime.go
 
 const (
 	Version = "v0.11.2"                                         // Version of ent codegen.

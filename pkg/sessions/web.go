@@ -9,9 +9,9 @@ import (
 
 	"github.com/spf13/viper"
 	"github.com/vogtp/go-hcl"
-	"github.com/vogtp/go-win-session/ent"
-	"github.com/vogtp/go-win-session/ent/day"
-	"github.com/vogtp/go-win-session/pkg/cfg"
+	"github.com/vogtp/go-parental-control/ent"
+	"github.com/vogtp/go-parental-control/ent/day"
+	"github.com/vogtp/go-parental-control/pkg/cfg"
 )
 
 func (s *Service) serveHTTP() {

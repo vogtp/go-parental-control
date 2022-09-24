@@ -14,8 +14,8 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/vogtp/go-hcl"
-	"github.com/vogtp/go-win-session/pkg/cfg"
-	"github.com/vogtp/go-win-session/pkg/db"
+	"github.com/vogtp/go-parental-control/pkg/cfg"
+	"github.com/vogtp/go-parental-control/pkg/db"
 )
 
 type Service struct {
@@ -41,7 +41,7 @@ func (s *Service) Init(env svc.Environment) error {
 	s.quit = make(chan any)
 	s.session = &sessionData{}
 	go func() {
-		path := "C:/ProgramData/go-win-sessions/"
+		path := "C:/ProgramData/go-parental-controls/"
 		_, err := os.Stat(path)
 		if errors.Is(err, os.ErrNotExist) {
 			os.Mkdir(path, os.ModeAppend)

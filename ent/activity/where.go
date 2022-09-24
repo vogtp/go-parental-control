@@ -4,7 +4,7 @@ package activity
 
 import (
 	"entgo.io/ent/dialect/sql"
-	"github.com/vogtp/go-win-session/ent/predicate"
+	"github.com/vogtp/go-parental-control/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

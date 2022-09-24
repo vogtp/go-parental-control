@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/vogtp/go-win-session/ent/activity"
+	"github.com/vogtp/go-parental-control/ent/activity"
 )
 
 // Activity is the model entity for the Activity schema.

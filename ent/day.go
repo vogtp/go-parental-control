@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/vogtp/go-win-session/ent/day"
+	"github.com/vogtp/go-parental-control/ent/day"
 )
 
 // Day is the model entity for the Day schema.

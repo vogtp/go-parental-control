@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"github.com/vogtp/go-hcl"
-	"github.com/vogtp/go-win-session/pkg/cfg"
-	"github.com/vogtp/go-win-session/pkg/sessions"
+	"github.com/vogtp/go-parental-control/pkg/cfg"
+	"github.com/vogtp/go-parental-control/pkg/sessions"
 )
 
 func main() {

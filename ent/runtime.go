@@ -3,8 +3,8 @@
 package ent
 
 import (
-	"github.com/vogtp/go-win-session/ent/activity"
-	"github.com/vogtp/go-win-session/ent/schema"
+	"github.com/vogtp/go-parental-control/ent/activity"
+	"github.com/vogtp/go-parental-control/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

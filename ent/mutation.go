@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/vogtp/go-win-session/ent/activity"
-	"github.com/vogtp/go-win-session/ent/day"
-	"github.com/vogtp/go-win-session/ent/predicate"
+	"github.com/vogtp/go-parental-control/ent/activity"
+	"github.com/vogtp/go-parental-control/ent/day"
+	"github.com/vogtp/go-parental-control/ent/predicate"
 
 	"entgo.io/ent"
 )

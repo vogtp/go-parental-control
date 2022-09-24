@@ -5,10 +5,10 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
-	"github.com/vogtp/go-win-session/pkg/cfg"
-	"github.com/vogtp/go-win-session/pkg/idle"
-	"github.com/vogtp/go-win-session/pkg/sessions"
-	"github.com/vogtp/go-win-session/pkg/user"
+	"github.com/vogtp/go-parental-control/pkg/cfg"
+	"github.com/vogtp/go-parental-control/pkg/idle"
+	"github.com/vogtp/go-parental-control/pkg/sessions"
+	"github.com/vogtp/go-parental-control/pkg/user"
 )
 
 func getIdle() {

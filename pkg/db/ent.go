@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/vogtp/go-win-session/ent"
+	"github.com/vogtp/go-parental-control/ent"
 )
 
 type Access struct {

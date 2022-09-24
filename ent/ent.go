@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/vogtp/go-win-session/ent/activity"
-	"github.com/vogtp/go-win-session/ent/day"
+	"github.com/vogtp/go-parental-control/ent/activity"
+	"github.com/vogtp/go-parental-control/ent/day"
 )
 
 // ent aliases to avoid import conflicts in user's code.

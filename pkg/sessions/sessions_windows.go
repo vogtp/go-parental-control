@@ -5,7 +5,7 @@ import (
 
 	"github.com/gentlemanautomaton/winsession"
 	"github.com/gentlemanautomaton/winsession/lockstate"
-	"github.com/vogtp/go-win-session/pkg/user"
+	"github.com/vogtp/go-parental-control/pkg/user"
 )
 
 func (s *Service) getSessions() ([]activeSession, error) {

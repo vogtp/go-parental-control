@@ -5,6 +5,6 @@ go build -ldflags -H=windowsgui -o go-win-systray.exe .\cmd\systray\
 
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-rem copy .\go-win-idle.exe "C:\ProgramData\go-win-sessions\"
-copy .\go-win-systray.exe "C:\ProgramData\go-win-sessions\"
+rem copy .\go-win-idle.exe "C:\ProgramData\go-parental-controls\"
+copy .\go-win-systray.exe "C:\ProgramData\go-parental-controls\"
 copy .\go-win-systray.exe "C:\"

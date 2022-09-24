@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/vogtp/go-win-session/ent/migrate"
+	"github.com/vogtp/go-parental-control/ent/migrate"
 
-	"github.com/vogtp/go-win-session/ent/activity"
-	"github.com/vogtp/go-win-session/ent/day"
+	"github.com/vogtp/go-parental-control/ent/activity"
+	"github.com/vogtp/go-parental-control/ent/day"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
