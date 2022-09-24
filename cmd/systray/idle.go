@@ -30,7 +30,6 @@ func getIdle() {
 		)
 		label.Text = fmt.Sprintf("%s -> %s", time.Now().Format("2006-01-02T15:04:05"), dur.Round(time.Second))
 		label.Refresh()
-		//	systray.SetTooltip(fmt.Sprintf("%s -> %s", time.Now().Format(time.RFC3339), la.Format(time.RFC3339)))
 		if show {
 			fmt.Println(l)
 		}

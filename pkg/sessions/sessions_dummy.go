@@ -8,10 +8,10 @@ import (
 )
 
 func (s *Service) getSessions() ([]activeSession, error) {
-	username := "vogtp"
+	username := "papa"
 	id := "1000"
 	if rand.Intn(10) > 5 {
-		username = "rendep00"
+		username = "mama"
 		id = "1001"
 	}
 	return []activeSession{
