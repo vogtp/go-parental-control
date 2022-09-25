@@ -11,16 +11,19 @@ import (
 	"github.com/vogtp/go-parental-control/pkg/cfg"
 )
 
+var CancelApp context.CancelFunc
+
 func Run() {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx, CancelApp := context.WithCancel(context.Background())
+	defer CancelApp()
 	hcl.Info("Run")
 	pflag.Duration(cfg.Repeat, time.Minute, "Collect the stats every")
 	pflag.Bool(cfg.Show, hcl.IsGoRun(), "Print output to stdout")
 	viper.BindPFlags(pflag.CommandLine)
 	pflag.Parse()
 
-	a := runSystray()
+	a := runSystray(ctx)
+	a.Lifecycle().SetOnStopped(func() { checkClose(ctx, a) })
 
 	go getIdle(ctx, a)
 	hcl.Info("starting main loop")

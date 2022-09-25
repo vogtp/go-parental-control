@@ -17,11 +17,11 @@ func autostartMenu(menu *fyne.Menu) *fyne.MenuItem {
 	m.Checked = app.IsEnabled()
 
 	m.Action = func() {
-		//if app.IsEnabled() {
-		//	app.Disable()
-		//} else {
-		app.Enable()
-		//}
+		if app.IsEnabled() {
+			app.Disable()
+		} else {
+			app.Enable()
+		}
 		m.Label = autostartLabel(app)
 		m.Checked = app.IsEnabled()
 		menu.Refresh()
@@ -30,9 +30,9 @@ func autostartMenu(menu *fyne.Menu) *fyne.MenuItem {
 }
 
 func autostartLabel(app *autostart.App) string {
-	//	if app.IsEnabled() {
-	//		return "deinstallieren"
-	//	} else {
+	if app.IsEnabled() {
+		return "deinstallieren"
+	}
 	return "installieren"
-	//	}
+
 }

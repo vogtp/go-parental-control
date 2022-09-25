@@ -14,9 +14,15 @@ import (
 	"github.com/vogtp/go-parental-control/pkg/user"
 )
 
+var (
+	perventQuit bool
+	IdleLoop    chan any
+)
+
 func getIdle(ctx context.Context, app fyne.App) {
 	hcl.Info("Idle loop started")
 	defer hcl.Info("Idle loop stopped")
+	IdleLoop = make(chan any)
 	show := viper.GetBool(cfg.Show)
 	repeat := viper.GetDuration(cfg.Repeat)
 	if show {
@@ -42,13 +48,17 @@ func getIdle(ctx context.Context, app fyne.App) {
 			if d > time.Second {
 				msg := fmt.Sprintf("%s Du hast %v gespielt, hör mal auf", act.Username, d.Truncate(time.Minute))
 				app.SendNotification(fyne.NewNotification("Zeit aufzuhören", msg))
+				perventQuit = true
 			}
 		}
 		select {
 		case <-time.After(repeat):
 			continue
 		case <-ctx.Done():
-			fmt.Println("Quit received")
+			fmt.Println("Conext canceled")
+			return
+		case <-IdleLoop:
+			fmt.Println("IdleLoop closed")
 			return
 		}
 	}

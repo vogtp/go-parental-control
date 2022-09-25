@@ -1,28 +1,36 @@
 package systray
 
 import (
+	"context"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/widget"
 )
 
 var (
-	label *widget.Label
+	label      *widget.Label
+	mainWindow fyne.Window
 )
 
-func runSystray() fyne.App {
+func runSystray(ctx context.Context) fyne.App {
 	a := app.NewWithID("Check activity")
 
-	w := a.NewWindow("Check activity")
-	label = widget.NewLabel("...")
-	w.SetContent(label)
-
+	if mainWindow == nil {
+		mainWindow = a.NewWindow("Check activity")
+		label = widget.NewLabel("Starting activity checker...")
+		mainWindow.SetContent(container.NewVBox(
+			label,
+			widget.NewButton("Quit", func() { checkClose(ctx, a) }),
+		),
+		)
+	}
 	if desk, ok := a.(desktop.App); ok {
 		m := fyne.NewMenu("Check activity",
 			fyne.NewMenuItem("Show", func() {
-				w.Show()
-
+				mainWindow.Show()
 			}))
 		m.Items = append(m.Items, autostartMenu(m))
 		desk.SetSystemTrayMenu(m)
