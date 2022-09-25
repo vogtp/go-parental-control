@@ -59,3 +59,15 @@ func (uc *UserClient) GetActivity(ctx context.Context, day *ent.Day, usr string)
 	}
 	return act, nil
 }
+
+func (uc *UserClient) GetCurrentUserActivity(ctx context.Context, usr string) (*ent.Activity, error) {
+	day, err := uc.GetDay(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("cannot get day for user %s activity: %v", usr, err)
+	}
+	act, err := day.QueryActivity().Where(activity.UsernameEqualFold(usr)).First(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("cannot current activty of user %s: %v", usr, err)
+	}
+	return act, nil
+}

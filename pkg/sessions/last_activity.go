@@ -3,11 +3,13 @@ package sessions
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
 
 	"github.com/vogtp/go-hcl"
+	"github.com/vogtp/go-parental-control/ent"
 )
 
 const ActivtiyPage = "/activity"
@@ -33,10 +35,22 @@ func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
 	la.lastUpdate = time.Now()
 	s.session.LastActivity[la.User] = la
 	w.WriteHeader(http.StatusOK)
+	uc, err := s.db.UserClient()
+	if err != nil {
+		hcl.Warnf("Cannot userclient: %v", err)
+	}
+	act, err := uc.GetCurrentUserActivity(r.Context(), la.User)
+	if err != nil {
+		hcl.Warnf("Cannot get activity: %v", err)
+	}
+	err = json.NewEncoder(w).Encode(act)
+	if err != nil {
+		hcl.Warnf("Cannot encode activity: %v", err)
+	}
 	hcl.Infof("Got last activity: %s %s", la.User, la.LastActivity.Format(time.RFC3339))
 }
 
-func SendLastActivity(user string, last time.Time) {
+func SendLastActivity(user string, last time.Time) (*ent.Activity, error) {
 	var body bytes.Buffer
 	la := &lastActData{
 		User:         user,
@@ -44,19 +58,24 @@ func SendLastActivity(user string, last time.Time) {
 	}
 	err := json.NewEncoder(&body).Encode(la)
 	if err != nil {
-		hcl.Errorf("cannot encode last activity: %v", err)
-		return
+		return nil, fmt.Errorf("cannot encode last activity: %v", err)
+
 	}
 	r, err := http.Post("http://localhost:4711"+ActivtiyPage, "application/json", &body)
 	if err != nil {
-		hcl.Errorf("cannot send last activity: %v", err)
-		return
+		return nil, fmt.Errorf("cannot send last activity: %v", err)
 	}
 	if r.StatusCode != http.StatusOK {
-		hcl.Errorf("cannot send last activity: %v", r.Status)
-		return
+		return nil, fmt.Errorf("cannot send last activity: %v", r.Status)
+	}
+	bdy, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, fmt.Errorf("Cannot read body: %v", err)
 	}
 	if hcl.IsGoRun() {
 		hcl.Infof("sent last activity: %v", r.Status)
 	}
+	act := &ent.Activity{}
+	err = json.Unmarshal(bdy, act)
+	return act, err
 }
