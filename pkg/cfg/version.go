@@ -19,6 +19,10 @@ type VersionInfo struct {
 }
 
 func (v VersionInfo) String() string {
+	return fmt.Sprintf("%v.%v.%v", v.Major, v.Minor, v.Patch)
+}
+
+func (v VersionInfo) StringFull() string {
 	return fmt.Sprintf("%v.%v.%v-%v", v.Major, v.Minor, v.Patch, BuildInfo)
 }
 
