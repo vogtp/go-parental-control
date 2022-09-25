@@ -1,5 +1,6 @@
 package cfg
 
 const (
-	Version = "0.2.0"
+	// Version of app
+	Version = "0.3.0"
 )
