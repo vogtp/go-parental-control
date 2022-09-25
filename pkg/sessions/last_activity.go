@@ -52,6 +52,8 @@ func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
 }
 
 func SendLastActivity(ctx context.Context, user string, last time.Time) (*ent.Activity, error) {
+	ctx, cancel := context.WithTimeout(ctx, time.Second)
+	defer cancel()
 	var body bytes.Buffer
 	la := &lastActData{
 		User:         user,
