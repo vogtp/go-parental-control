@@ -2,6 +2,7 @@ package sessions
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -50,7 +51,7 @@ func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
 	hcl.Infof("Got last activity: %s %s", la.User, la.LastActivity.Format(time.RFC3339))
 }
 
-func SendLastActivity(user string, last time.Time) (*ent.Activity, error) {
+func SendLastActivity(ctx context.Context, user string, last time.Time) (*ent.Activity, error) {
 	var body bytes.Buffer
 	la := &lastActData{
 		User:         user,
@@ -58,19 +59,26 @@ func SendLastActivity(user string, last time.Time) (*ent.Activity, error) {
 	}
 	err := json.NewEncoder(&body).Encode(la)
 	if err != nil {
-		return nil, fmt.Errorf("cannot encode last activity: %v", err)
+		return nil, fmt.Errorf("cannot encode last activity: %w", err)
 
 	}
-	r, err := http.Post("http://localhost:4711"+ActivtiyPage, "application/json", &body)
+
+	// "application/json",
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, "http://localhost:4711"+ActivtiyPage, &body)
 	if err != nil {
-		return nil, fmt.Errorf("cannot send last activity: %v", err)
+		return nil, fmt.Errorf("cannot create post request: %w", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	r, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("cannot send last activity: %w", err)
 	}
 	if r.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("cannot send last activity: %v", r.Status)
 	}
 	bdy, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		return nil, fmt.Errorf("Cannot read body: %v", err)
+		return nil, fmt.Errorf("Cannot read body: %w", err)
 	}
 	if hcl.IsGoRun() {
 		hcl.Infof("sent last activity: %v", r.Status)

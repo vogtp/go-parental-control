@@ -1,6 +1,7 @@
 package systray
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -13,9 +14,9 @@ import (
 	"github.com/vogtp/go-parental-control/pkg/user"
 )
 
-var stopIdle = make(chan any)
-
-func getIdle(app fyne.App) {
+func getIdle(ctx context.Context, app fyne.App) {
+	hcl.Info("Idle loop started")
+	defer hcl.Info("Idle loop stopped")
 	show := viper.GetBool(cfg.Show)
 	repeat := viper.GetDuration(cfg.Repeat)
 	if show {
@@ -33,7 +34,7 @@ func getIdle(app fyne.App) {
 		if repeat < time.Second {
 			return
 		}
-		act, err := sessions.SendLastActivity(usr, la)
+		act, err := sessions.SendLastActivity(ctx, usr, la)
 		if err != nil {
 			hcl.Warnf("Sending activity: %v", err)
 		} else {
@@ -46,7 +47,7 @@ func getIdle(app fyne.App) {
 		select {
 		case <-time.After(repeat):
 			continue
-		case <-stopIdle:
+		case <-ctx.Done():
 			fmt.Println("Quit received")
 			return
 		}

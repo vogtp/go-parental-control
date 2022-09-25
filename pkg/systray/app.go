@@ -1,6 +1,7 @@
 package systray
 
 import (
+	"context"
 	_ "embed"
 	"time"
 
@@ -11,6 +12,8 @@ import (
 )
 
 func Run() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	hcl.Info("Run")
 	pflag.Duration(cfg.Repeat, time.Minute, "Collect the stats every")
 	pflag.Bool(cfg.Show, hcl.IsGoRun(), "Print output to stdout")
@@ -19,9 +22,8 @@ func Run() {
 
 	a := runSystray()
 
-	go getIdle(a)
+	go getIdle(ctx, a)
 	hcl.Info("starting main loop")
 	a.Run()
 
-	close(stopIdle)
 }
