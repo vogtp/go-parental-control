@@ -19,11 +19,10 @@ func autostartMenu(menu *fyne.Menu) *fyne.MenuItem {
 
 	m.Action = func() {
 		if auto.IsEnabled() {
-			if err := auto.Disable(); err != nil {
-				hcl.Warnf("Cannot disable binary: %v", err)
-			}
+			//if err := auto.Disable(); err != nil {
+			//	hcl.Warnf("Cannot disable binary: %v", err)
+			//}
 		} else {
-
 			if err := auto.Enable(); err != nil {
 				hcl.Warnf("Cannot enable binary: %v", err)
 			}
@@ -37,7 +36,8 @@ func autostartMenu(menu *fyne.Menu) *fyne.MenuItem {
 
 func autostartLabel(app *autostart.App) string {
 	if app.IsEnabled() {
-		return "deinstallieren"
+		//return "deinstallieren"
+		return "installiert"
 	}
 	return "installieren"
 
