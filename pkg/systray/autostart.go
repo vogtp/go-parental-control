@@ -5,25 +5,31 @@ import (
 
 	"fyne.io/fyne/v2"
 	"github.com/emersion/go-autostart"
+	"github.com/vogtp/go-hcl"
 )
 
 func autostartMenu(menu *fyne.Menu) *fyne.MenuItem {
-	app := &autostart.App{
+	auto := &autostart.App{
 		Name:        "go-win-idle",
 		DisplayName: "idle checker",
 		Exec:        []string{os.Args[0]},
 	}
-	m := fyne.NewMenuItem(autostartLabel(app), func() {})
-	m.Checked = app.IsEnabled()
+	m := fyne.NewMenuItem(autostartLabel(auto), func() {})
+	m.Checked = auto.IsEnabled()
 
 	m.Action = func() {
-		if app.IsEnabled() {
-			app.Disable()
+		if auto.IsEnabled() {
+			if err := auto.Disable(); err != nil {
+				hcl.Warnf("Cannot disable binary: %v", err)
+			}
 		} else {
-			app.Enable()
+
+			if err := auto.Enable(); err != nil {
+				hcl.Warnf("Cannot enable binary: %v", err)
+			}
 		}
-		m.Label = autostartLabel(app)
-		m.Checked = app.IsEnabled()
+		m.Label = autostartLabel(auto)
+		m.Checked = auto.IsEnabled()
 		menu.Refresh()
 	}
 	return m

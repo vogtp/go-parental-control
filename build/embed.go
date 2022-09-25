@@ -3,6 +3,7 @@ package build
 import (
 	"embed"
 	"path"
+	"runtime"
 
 	"github.com/vogtp/go-hcl"
 )
@@ -11,6 +12,13 @@ var (
 	//go:embed *
 	assetData embed.FS
 )
+
+func GetFile(name string) ([]byte, error) {
+	if runtime.GOOS == "windows" {
+		name += ".exe"
+	}
+	return assetData.ReadFile(name)
+}
 
 func ListFiles() {
 	out, err := getAllFilenames(&assetData, "")
