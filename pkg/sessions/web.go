@@ -19,7 +19,7 @@ func (s *Service) serveHTTP() {
 		w.WriteHeader(http.StatusOK)
 		s.printSessions(r.Context(), w)
 		fmt.Fprintf(w, "\n\nLast Update: %s\n", s.lastRun.Format(cfg.TimeFormat))
-		fmt.Fprintf(w, "Version: %s\n", cfg.Version)
+		fmt.Fprintf(w, "Version: %s\n", cfg.Version.StringFull())
 	})
 	http.HandleFunc(ActivtiyPage, s.handleLastActivity)
 	http.HandleFunc(UpdatePage, s.handleUpdate)
