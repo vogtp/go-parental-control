@@ -3,3 +3,4 @@ build/
 *.exe
 *.sqlite
 *.yml
+go-parental-control-*
