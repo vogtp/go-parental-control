@@ -12,7 +12,6 @@ type Activity struct {
 
 // Fields of the Activity.
 func (Activity) Fields() []ent.Field {
-
 	return []ent.Field{
 		field.String("username"),
 		field.Int64("duration").Default(0).StorageKey("activity"),
