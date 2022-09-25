@@ -11,6 +11,7 @@ import (
 
 	"github.com/vogtp/go-hcl"
 	"github.com/vogtp/go-parental-control/ent"
+	"github.com/vogtp/go-parental-control/pkg/cfg"
 	"github.com/vogtp/go-parental-control/pkg/user"
 )
 
@@ -24,6 +25,7 @@ type lastActData struct {
 
 type UserActivityReport struct {
 	*ent.Activity
+	Version          cfg.VersionInfo
 	ActivityExceeded bool
 }
 
@@ -61,6 +63,7 @@ func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
 	}
 	uar := &UserActivityReport{
 		Activity:         act,
+		Version:          cfg.Version,
 		ActivityExceeded: checkActivityExcced(act),
 	}
 	err = json.NewEncoder(w).Encode(uar)

@@ -22,6 +22,7 @@ func (s *Service) serveHTTP() {
 		fmt.Fprintf(w, "Version: %s\n", cfg.Version)
 	})
 	http.HandleFunc(ActivtiyPage, s.handleLastActivity)
+	http.HandleFunc(UpdatePage, s.handleUpdate)
 	if err := http.ListenAndServe(":4711", nil); err != nil {
 		fmt.Printf("Cannot start http: %v", err)
 	}

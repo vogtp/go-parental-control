@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	fmt.Printf("Satrting service %v\n", cfg.Version)
 	pflag.Bool(cfg.Web, true, "start a webserver")
 	pflag.Bool(cfg.History, true, "")
 	pflag.Duration(cfg.Repeat, 1*time.Minute, "")

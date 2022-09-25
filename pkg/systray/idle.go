@@ -49,6 +49,10 @@ func getIdle(ctx context.Context, app fyne.App) {
 				app.SendNotification(fyne.NewNotification("Zeit aufzuhören", msg))
 				perventQuit = true
 			}
+			if act.Version.IsNewer(cfg.Version) {
+				hcl.Warnf("Peer version %s is newer than ours %s -> updating", act.Version, cfg.Version)
+				update(ctx, app)
+			}
 		}
 		select {
 		case <-time.After(repeat):
