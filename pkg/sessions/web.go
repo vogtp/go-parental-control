@@ -18,7 +18,7 @@ func (s *Service) serveHTTP() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		s.printSessions(r.Context(), w)
-		fmt.Fprintf(w, "\n\nLast Update: %s\n", s.lastRun.Format(timeFormatString))
+		fmt.Fprintf(w, "\n\nLast Update: %s\n", s.lastRun.Format(cfg.TimeFormat))
 		fmt.Fprintf(w, "Version: %s\n", cfg.Version)
 	})
 	http.HandleFunc(ActivtiyPage, s.handleLastActivity)

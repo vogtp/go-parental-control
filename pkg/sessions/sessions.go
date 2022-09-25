@@ -12,12 +12,6 @@ import (
 	"github.com/vogtp/go-hcl"
 )
 
-var (
-	timeFormatString = "2006.01.02 15:04:05"
-
-	dateFormatString = "2006.01.02"
-)
-
 type sessionData struct {
 	current      string
 	LastActivity map[string]*lastActData
