@@ -24,9 +24,11 @@ func checkClose(ctx context.Context, a fyne.App) {
 	if closeWindow == nil {
 		closeWindow = a.NewWindow("Quit")
 		code = binding.NewString()
+		codeEdit := widget.NewEntryWithData(code)
+		codeEdit.Password = true
 		closeWindow.SetContent(container.NewVBox(
 			widget.NewLabel("Enter Code"),
-			widget.NewEntryWithData(code),
+			codeEdit,
 		))
 		closeWindow.SetOnClosed(func() {
 
