@@ -25,6 +25,14 @@ func getIdle(app fyne.App) {
 		usr := user.Current()
 		la := idle.Time()
 		dur := idle.Duration()
+		label.Text = fmt.Sprintf("%s -> %s", time.Now().Format(cfg.TimeFormat), dur.Round(time.Second))
+		label.Refresh()
+		if show {
+			fmt.Printf("%s\t%s\t%v\t%v\n", time.Now().Format(cfg.TimeFormat), usr, dur, la.Format(cfg.TimeFormat))
+		}
+		if repeat < time.Second {
+			return
+		}
 		act, err := sessions.SendLastActivity(usr, la)
 		if err != nil {
 			hcl.Warnf("Sending activity: %v", err)
@@ -34,20 +42,6 @@ func getIdle(app fyne.App) {
 				msg := fmt.Sprintf("%s Du hast %v gespielt, hör mal auf", act.Username, d.Truncate(time.Minute))
 				app.SendNotification(fyne.NewNotification("Zeit aufzuhören", msg))
 			}
-		}
-		l := fmt.Sprintf("%s\t%s\t%v\t%v\n",
-			time.Now().Format(time.RFC3339),
-			usr,
-			dur,
-			la.Format(time.RFC3339),
-		)
-		label.Text = fmt.Sprintf("%s -> %s", time.Now().Format("2006-01-02 15:04:05"), dur.Round(time.Second))
-		label.Refresh()
-		if show {
-			fmt.Println(l)
-		}
-		if repeat < time.Second {
-			return
 		}
 		select {
 		case <-time.After(repeat):
