@@ -15,7 +15,7 @@ func (Activity) Fields() []ent.Field {
 
 	return []ent.Field{
 		field.String("username"),
-		field.Int64("activity").Default(0),
+		field.Int64("duration").Default(0).StorageKey("activity"),
 	}
 }
 

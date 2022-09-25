@@ -9,8 +9,8 @@ const (
 	FieldID = "id"
 	// FieldUsername holds the string denoting the username field in the database.
 	FieldUsername = "username"
-	// FieldActivity holds the string denoting the activity field in the database.
-	FieldActivity = "activity"
+	// FieldDuration holds the string denoting the duration field in the database.
+	FieldDuration = "activity"
 	// Table holds the table name of the activity in the database.
 	Table = "activities"
 )
@@ -19,7 +19,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldUsername,
-	FieldActivity,
+	FieldDuration,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the "activities"
@@ -44,6 +44,6 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// DefaultActivity holds the default value on creation for the "activity" field.
-	DefaultActivity int64
+	// DefaultDuration holds the default value on creation for the "duration" field.
+	DefaultDuration int64
 )

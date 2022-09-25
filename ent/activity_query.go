@@ -262,7 +262,6 @@ func (aq *ActivityQuery) Clone() *ActivityQuery {
 //		GroupBy(activity.FieldUsername).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-//
 func (aq *ActivityQuery) GroupBy(field string, fields ...string) *ActivityGroupBy {
 	grbuild := &ActivityGroupBy{config: aq.config}
 	grbuild.fields = append([]string{field}, fields...)
@@ -289,7 +288,6 @@ func (aq *ActivityQuery) GroupBy(field string, fields ...string) *ActivityGroupB
 //	client.Activity.Query().
 //		Select(activity.FieldUsername).
 //		Scan(ctx, &v)
-//
 func (aq *ActivityQuery) Select(fields ...string) *ActivitySelect {
 	aq.fields = append(aq.fields, fields...)
 	selbuild := &ActivitySelect{ActivityQuery: aq}

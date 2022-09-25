@@ -44,9 +44,8 @@ func getIdle(ctx context.Context, app fyne.App) {
 		if err != nil {
 			hcl.Warnf("Sending activity: %v", err)
 		} else {
-			d := time.Duration(act.Activity)
-			if d > time.Second {
-				msg := fmt.Sprintf("%s Du hast %v gespielt, hör mal auf", act.Username, d.Truncate(time.Minute))
+			if act.ActivityExceeded {
+				msg := fmt.Sprintf("%s Du hast %v gespielt, hör mal auf", act.Username, act.Duration())
 				app.SendNotification(fyne.NewNotification("Zeit aufzuhören", msg))
 				perventQuit = true
 			}

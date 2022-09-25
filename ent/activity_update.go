@@ -33,24 +33,24 @@ func (au *ActivityUpdate) SetUsername(s string) *ActivityUpdate {
 	return au
 }
 
-// SetActivity sets the "activity" field.
-func (au *ActivityUpdate) SetActivity(i int64) *ActivityUpdate {
-	au.mutation.ResetActivity()
-	au.mutation.SetActivity(i)
+// SetDuration sets the "duration" field.
+func (au *ActivityUpdate) SetDuration(i int64) *ActivityUpdate {
+	au.mutation.ResetDuration()
+	au.mutation.SetDuration(i)
 	return au
 }
 
-// SetNillableActivity sets the "activity" field if the given value is not nil.
-func (au *ActivityUpdate) SetNillableActivity(i *int64) *ActivityUpdate {
+// SetNillableDuration sets the "duration" field if the given value is not nil.
+func (au *ActivityUpdate) SetNillableDuration(i *int64) *ActivityUpdate {
 	if i != nil {
-		au.SetActivity(*i)
+		au.SetDuration(*i)
 	}
 	return au
 }
 
-// AddActivity adds i to the "activity" field.
-func (au *ActivityUpdate) AddActivity(i int64) *ActivityUpdate {
-	au.mutation.AddActivity(i)
+// AddDuration adds i to the "duration" field.
+func (au *ActivityUpdate) AddDuration(i int64) *ActivityUpdate {
+	au.mutation.AddDuration(i)
 	return au
 }
 
@@ -138,18 +138,18 @@ func (au *ActivityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: activity.FieldUsername,
 		})
 	}
-	if value, ok := au.mutation.Activity(); ok {
+	if value, ok := au.mutation.Duration(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: activity.FieldActivity,
+			Column: activity.FieldDuration,
 		})
 	}
-	if value, ok := au.mutation.AddedActivity(); ok {
+	if value, ok := au.mutation.AddedDuration(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: activity.FieldActivity,
+			Column: activity.FieldDuration,
 		})
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
@@ -177,24 +177,24 @@ func (auo *ActivityUpdateOne) SetUsername(s string) *ActivityUpdateOne {
 	return auo
 }
 
-// SetActivity sets the "activity" field.
-func (auo *ActivityUpdateOne) SetActivity(i int64) *ActivityUpdateOne {
-	auo.mutation.ResetActivity()
-	auo.mutation.SetActivity(i)
+// SetDuration sets the "duration" field.
+func (auo *ActivityUpdateOne) SetDuration(i int64) *ActivityUpdateOne {
+	auo.mutation.ResetDuration()
+	auo.mutation.SetDuration(i)
 	return auo
 }
 
-// SetNillableActivity sets the "activity" field if the given value is not nil.
-func (auo *ActivityUpdateOne) SetNillableActivity(i *int64) *ActivityUpdateOne {
+// SetNillableDuration sets the "duration" field if the given value is not nil.
+func (auo *ActivityUpdateOne) SetNillableDuration(i *int64) *ActivityUpdateOne {
 	if i != nil {
-		auo.SetActivity(*i)
+		auo.SetDuration(*i)
 	}
 	return auo
 }
 
-// AddActivity adds i to the "activity" field.
-func (auo *ActivityUpdateOne) AddActivity(i int64) *ActivityUpdateOne {
-	auo.mutation.AddActivity(i)
+// AddDuration adds i to the "duration" field.
+func (auo *ActivityUpdateOne) AddDuration(i int64) *ActivityUpdateOne {
+	auo.mutation.AddDuration(i)
 	return auo
 }
 
@@ -312,18 +312,18 @@ func (auo *ActivityUpdateOne) sqlSave(ctx context.Context) (_node *Activity, err
 			Column: activity.FieldUsername,
 		})
 	}
-	if value, ok := auo.mutation.Activity(); ok {
+	if value, ok := auo.mutation.Duration(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: activity.FieldActivity,
+			Column: activity.FieldDuration,
 		})
 	}
-	if value, ok := auo.mutation.AddedActivity(); ok {
+	if value, ok := auo.mutation.AddedDuration(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: activity.FieldActivity,
+			Column: activity.FieldDuration,
 		})
 	}
 	_node = &Activity{config: auo.config}

@@ -230,7 +230,6 @@ func (dc *DayCreate) createSpec() (*Day, *sqlgraph.CreateSpec) {
 //			SetYear(v+v).
 //		}).
 //		Exec(ctx)
-//
 func (dc *DayCreate) OnConflict(opts ...sql.ConflictOption) *DayUpsertOne {
 	dc.conflict = opts
 	return &DayUpsertOne{
@@ -244,7 +243,6 @@ func (dc *DayCreate) OnConflict(opts ...sql.ConflictOption) *DayUpsertOne {
 //	client.Day.Create().
 //		OnConflict(sql.ConflictColumns(columns...)).
 //		Exec(ctx)
-//
 func (dc *DayCreate) OnConflictColumns(columns ...string) *DayUpsertOne {
 	dc.conflict = append(dc.conflict, sql.ConflictColumns(columns...))
 	return &DayUpsertOne{
@@ -327,7 +325,6 @@ func (u *DayUpsert) AddDay(v int) *DayUpsert {
 //			sql.ResolveWithNewValues(),
 //		).
 //		Exec(ctx)
-//
 func (u *DayUpsertOne) UpdateNewValues() *DayUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	return u
@@ -336,10 +333,9 @@ func (u *DayUpsertOne) UpdateNewValues() *DayUpsertOne {
 // Ignore sets each column to itself in case of conflict.
 // Using this option is equivalent to using:
 //
-//  client.Day.Create().
-//      OnConflict(sql.ResolveWithIgnore()).
-//      Exec(ctx)
-//
+//	client.Day.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
 func (u *DayUpsertOne) Ignore() *DayUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
 	return u
@@ -557,7 +553,6 @@ func (dcb *DayCreateBulk) ExecX(ctx context.Context) {
 //			SetYear(v+v).
 //		}).
 //		Exec(ctx)
-//
 func (dcb *DayCreateBulk) OnConflict(opts ...sql.ConflictOption) *DayUpsertBulk {
 	dcb.conflict = opts
 	return &DayUpsertBulk{
@@ -571,7 +566,6 @@ func (dcb *DayCreateBulk) OnConflict(opts ...sql.ConflictOption) *DayUpsertBulk 
 //	client.Day.Create().
 //		OnConflict(sql.ConflictColumns(columns...)).
 //		Exec(ctx)
-//
 func (dcb *DayCreateBulk) OnConflictColumns(columns ...string) *DayUpsertBulk {
 	dcb.conflict = append(dcb.conflict, sql.ConflictColumns(columns...))
 	return &DayUpsertBulk{
@@ -593,7 +587,6 @@ type DayUpsertBulk struct {
 //			sql.ResolveWithNewValues(),
 //		).
 //		Exec(ctx)
-//
 func (u *DayUpsertBulk) UpdateNewValues() *DayUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	return u
@@ -605,7 +598,6 @@ func (u *DayUpsertBulk) UpdateNewValues() *DayUpsertBulk {
 //	client.Day.Create().
 //		OnConflict(sql.ResolveWithIgnore()).
 //		Exec(ctx)
-//
 func (u *DayUpsertBulk) Ignore() *DayUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
 	return u

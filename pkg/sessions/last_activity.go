@@ -21,6 +21,19 @@ type lastActData struct {
 	LastActivity time.Time
 }
 
+type UserActivityReport struct {
+	*ent.Activity
+	ActivityExceeded bool
+}
+
+func (uar UserActivityReport) Duration() time.Duration {
+	return time.Duration(uar.Activity.Duration).Truncate(time.Minute)
+}
+
+func checkActivityExcced(act *ent.Activity) bool {
+	return time.Duration(act.Duration) > time.Hour
+}
+
 func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -44,14 +57,18 @@ func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		hcl.Warnf("Cannot get activity: %v", err)
 	}
-	err = json.NewEncoder(w).Encode(act)
+	uar := &UserActivityReport{
+		Activity:         act,
+		ActivityExceeded: checkActivityExcced(act),
+	}
+	err = json.NewEncoder(w).Encode(uar)
 	if err != nil {
 		hcl.Warnf("Cannot encode activity: %v", err)
 	}
 	hcl.Infof("Got last activity: %s %s", la.User, la.LastActivity.Format(time.RFC3339))
 }
 
-func SendLastActivity(ctx context.Context, user string, last time.Time) (*ent.Activity, error) {
+func SendLastActivity(ctx context.Context, user string, last time.Time) (*UserActivityReport, error) {
 	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
 	var body bytes.Buffer
@@ -85,7 +102,7 @@ func SendLastActivity(ctx context.Context, user string, last time.Time) (*ent.Ac
 	if hcl.IsGoRun() {
 		hcl.Infof("sent last activity: %v", r.Status)
 	}
-	act := &ent.Activity{}
+	act := &UserActivityReport{}
 	err = json.Unmarshal(bdy, act)
 	return act, err
 }

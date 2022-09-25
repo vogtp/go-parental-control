@@ -85,10 +85,10 @@ func Username(v string) predicate.Activity {
 	})
 }
 
-// Activity applies equality check predicate on the "activity" field. It's identical to ActivityEQ.
-func Activity(v int64) predicate.Activity {
+// Duration applies equality check predicate on the "duration" field. It's identical to DurationEQ.
+func Duration(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldActivity), v))
+		s.Where(sql.EQ(s.C(FieldDuration), v))
 	})
 }
 
@@ -191,67 +191,67 @@ func UsernameContainsFold(v string) predicate.Activity {
 	})
 }
 
-// ActivityEQ applies the EQ predicate on the "activity" field.
-func ActivityEQ(v int64) predicate.Activity {
+// DurationEQ applies the EQ predicate on the "duration" field.
+func DurationEQ(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldActivity), v))
+		s.Where(sql.EQ(s.C(FieldDuration), v))
 	})
 }
 
-// ActivityNEQ applies the NEQ predicate on the "activity" field.
-func ActivityNEQ(v int64) predicate.Activity {
+// DurationNEQ applies the NEQ predicate on the "duration" field.
+func DurationNEQ(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldActivity), v))
+		s.Where(sql.NEQ(s.C(FieldDuration), v))
 	})
 }
 
-// ActivityIn applies the In predicate on the "activity" field.
-func ActivityIn(vs ...int64) predicate.Activity {
+// DurationIn applies the In predicate on the "duration" field.
+func DurationIn(vs ...int64) predicate.Activity {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.In(s.C(FieldActivity), v...))
+		s.Where(sql.In(s.C(FieldDuration), v...))
 	})
 }
 
-// ActivityNotIn applies the NotIn predicate on the "activity" field.
-func ActivityNotIn(vs ...int64) predicate.Activity {
+// DurationNotIn applies the NotIn predicate on the "duration" field.
+func DurationNotIn(vs ...int64) predicate.Activity {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
 	}
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.NotIn(s.C(FieldActivity), v...))
+		s.Where(sql.NotIn(s.C(FieldDuration), v...))
 	})
 }
 
-// ActivityGT applies the GT predicate on the "activity" field.
-func ActivityGT(v int64) predicate.Activity {
+// DurationGT applies the GT predicate on the "duration" field.
+func DurationGT(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldActivity), v))
+		s.Where(sql.GT(s.C(FieldDuration), v))
 	})
 }
 
-// ActivityGTE applies the GTE predicate on the "activity" field.
-func ActivityGTE(v int64) predicate.Activity {
+// DurationGTE applies the GTE predicate on the "duration" field.
+func DurationGTE(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldActivity), v))
+		s.Where(sql.GTE(s.C(FieldDuration), v))
 	})
 }
 
-// ActivityLT applies the LT predicate on the "activity" field.
-func ActivityLT(v int64) predicate.Activity {
+// DurationLT applies the LT predicate on the "duration" field.
+func DurationLT(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldActivity), v))
+		s.Where(sql.LT(s.C(FieldDuration), v))
 	})
 }
 
-// ActivityLTE applies the LTE predicate on the "activity" field.
-func ActivityLTE(v int64) predicate.Activity {
+// DurationLTE applies the LTE predicate on the "duration" field.
+func DurationLTE(v int64) predicate.Activity {
 	return predicate.Activity(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldActivity), v))
+		s.Where(sql.LTE(s.C(FieldDuration), v))
 	})
 }
 

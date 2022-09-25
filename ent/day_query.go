@@ -298,7 +298,6 @@ func (dq *DayQuery) WithActivity(opts ...func(*ActivityQuery)) *DayQuery {
 //		GroupBy(day.FieldYear).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
-//
 func (dq *DayQuery) GroupBy(field string, fields ...string) *DayGroupBy {
 	grbuild := &DayGroupBy{config: dq.config}
 	grbuild.fields = append([]string{field}, fields...)
@@ -325,7 +324,6 @@ func (dq *DayQuery) GroupBy(field string, fields ...string) *DayGroupBy {
 //	client.Day.Query().
 //		Select(day.FieldYear).
 //		Scan(ctx, &v)
-//
 func (dq *DayQuery) Select(fields ...string) *DaySelect {
 	dq.fields = append(dq.fields, fields...)
 	selbuild := &DaySelect{DayQuery: dq}

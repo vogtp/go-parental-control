@@ -27,16 +27,16 @@ func (ac *ActivityCreate) SetUsername(s string) *ActivityCreate {
 	return ac
 }
 
-// SetActivity sets the "activity" field.
-func (ac *ActivityCreate) SetActivity(i int64) *ActivityCreate {
-	ac.mutation.SetActivity(i)
+// SetDuration sets the "duration" field.
+func (ac *ActivityCreate) SetDuration(i int64) *ActivityCreate {
+	ac.mutation.SetDuration(i)
 	return ac
 }
 
-// SetNillableActivity sets the "activity" field if the given value is not nil.
-func (ac *ActivityCreate) SetNillableActivity(i *int64) *ActivityCreate {
+// SetNillableDuration sets the "duration" field if the given value is not nil.
+func (ac *ActivityCreate) SetNillableDuration(i *int64) *ActivityCreate {
 	if i != nil {
-		ac.SetActivity(*i)
+		ac.SetDuration(*i)
 	}
 	return ac
 }
@@ -118,9 +118,9 @@ func (ac *ActivityCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (ac *ActivityCreate) defaults() {
-	if _, ok := ac.mutation.Activity(); !ok {
-		v := activity.DefaultActivity
-		ac.mutation.SetActivity(v)
+	if _, ok := ac.mutation.Duration(); !ok {
+		v := activity.DefaultDuration
+		ac.mutation.SetDuration(v)
 	}
 }
 
@@ -129,8 +129,8 @@ func (ac *ActivityCreate) check() error {
 	if _, ok := ac.mutation.Username(); !ok {
 		return &ValidationError{Name: "username", err: errors.New(`ent: missing required field "Activity.username"`)}
 	}
-	if _, ok := ac.mutation.Activity(); !ok {
-		return &ValidationError{Name: "activity", err: errors.New(`ent: missing required field "Activity.activity"`)}
+	if _, ok := ac.mutation.Duration(); !ok {
+		return &ValidationError{Name: "duration", err: errors.New(`ent: missing required field "Activity.duration"`)}
 	}
 	return nil
 }
@@ -168,13 +168,13 @@ func (ac *ActivityCreate) createSpec() (*Activity, *sqlgraph.CreateSpec) {
 		})
 		_node.Username = value
 	}
-	if value, ok := ac.mutation.Activity(); ok {
+	if value, ok := ac.mutation.Duration(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: activity.FieldActivity,
+			Column: activity.FieldDuration,
 		})
-		_node.Activity = value
+		_node.Duration = value
 	}
 	return _node, _spec
 }
@@ -195,7 +195,6 @@ func (ac *ActivityCreate) createSpec() (*Activity, *sqlgraph.CreateSpec) {
 //			SetUsername(v+v).
 //		}).
 //		Exec(ctx)
-//
 func (ac *ActivityCreate) OnConflict(opts ...sql.ConflictOption) *ActivityUpsertOne {
 	ac.conflict = opts
 	return &ActivityUpsertOne{
@@ -209,7 +208,6 @@ func (ac *ActivityCreate) OnConflict(opts ...sql.ConflictOption) *ActivityUpsert
 //	client.Activity.Create().
 //		OnConflict(sql.ConflictColumns(columns...)).
 //		Exec(ctx)
-//
 func (ac *ActivityCreate) OnConflictColumns(columns ...string) *ActivityUpsertOne {
 	ac.conflict = append(ac.conflict, sql.ConflictColumns(columns...))
 	return &ActivityUpsertOne{
@@ -242,21 +240,21 @@ func (u *ActivityUpsert) UpdateUsername() *ActivityUpsert {
 	return u
 }
 
-// SetActivity sets the "activity" field.
-func (u *ActivityUpsert) SetActivity(v int64) *ActivityUpsert {
-	u.Set(activity.FieldActivity, v)
+// SetDuration sets the "duration" field.
+func (u *ActivityUpsert) SetDuration(v int64) *ActivityUpsert {
+	u.Set(activity.FieldDuration, v)
 	return u
 }
 
-// UpdateActivity sets the "activity" field to the value that was provided on create.
-func (u *ActivityUpsert) UpdateActivity() *ActivityUpsert {
-	u.SetExcluded(activity.FieldActivity)
+// UpdateDuration sets the "duration" field to the value that was provided on create.
+func (u *ActivityUpsert) UpdateDuration() *ActivityUpsert {
+	u.SetExcluded(activity.FieldDuration)
 	return u
 }
 
-// AddActivity adds v to the "activity" field.
-func (u *ActivityUpsert) AddActivity(v int64) *ActivityUpsert {
-	u.Add(activity.FieldActivity, v)
+// AddDuration adds v to the "duration" field.
+func (u *ActivityUpsert) AddDuration(v int64) *ActivityUpsert {
+	u.Add(activity.FieldDuration, v)
 	return u
 }
 
@@ -268,7 +266,6 @@ func (u *ActivityUpsert) AddActivity(v int64) *ActivityUpsert {
 //			sql.ResolveWithNewValues(),
 //		).
 //		Exec(ctx)
-//
 func (u *ActivityUpsertOne) UpdateNewValues() *ActivityUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	return u
@@ -277,10 +274,9 @@ func (u *ActivityUpsertOne) UpdateNewValues() *ActivityUpsertOne {
 // Ignore sets each column to itself in case of conflict.
 // Using this option is equivalent to using:
 //
-//  client.Activity.Create().
-//      OnConflict(sql.ResolveWithIgnore()).
-//      Exec(ctx)
-//
+//	client.Activity.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
 func (u *ActivityUpsertOne) Ignore() *ActivityUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
 	return u
@@ -316,24 +312,24 @@ func (u *ActivityUpsertOne) UpdateUsername() *ActivityUpsertOne {
 	})
 }
 
-// SetActivity sets the "activity" field.
-func (u *ActivityUpsertOne) SetActivity(v int64) *ActivityUpsertOne {
+// SetDuration sets the "duration" field.
+func (u *ActivityUpsertOne) SetDuration(v int64) *ActivityUpsertOne {
 	return u.Update(func(s *ActivityUpsert) {
-		s.SetActivity(v)
+		s.SetDuration(v)
 	})
 }
 
-// AddActivity adds v to the "activity" field.
-func (u *ActivityUpsertOne) AddActivity(v int64) *ActivityUpsertOne {
+// AddDuration adds v to the "duration" field.
+func (u *ActivityUpsertOne) AddDuration(v int64) *ActivityUpsertOne {
 	return u.Update(func(s *ActivityUpsert) {
-		s.AddActivity(v)
+		s.AddDuration(v)
 	})
 }
 
-// UpdateActivity sets the "activity" field to the value that was provided on create.
-func (u *ActivityUpsertOne) UpdateActivity() *ActivityUpsertOne {
+// UpdateDuration sets the "duration" field to the value that was provided on create.
+func (u *ActivityUpsertOne) UpdateDuration() *ActivityUpsertOne {
 	return u.Update(func(s *ActivityUpsert) {
-		s.UpdateActivity()
+		s.UpdateDuration()
 	})
 }
 
@@ -471,7 +467,6 @@ func (acb *ActivityCreateBulk) ExecX(ctx context.Context) {
 //			SetUsername(v+v).
 //		}).
 //		Exec(ctx)
-//
 func (acb *ActivityCreateBulk) OnConflict(opts ...sql.ConflictOption) *ActivityUpsertBulk {
 	acb.conflict = opts
 	return &ActivityUpsertBulk{
@@ -485,7 +480,6 @@ func (acb *ActivityCreateBulk) OnConflict(opts ...sql.ConflictOption) *ActivityU
 //	client.Activity.Create().
 //		OnConflict(sql.ConflictColumns(columns...)).
 //		Exec(ctx)
-//
 func (acb *ActivityCreateBulk) OnConflictColumns(columns ...string) *ActivityUpsertBulk {
 	acb.conflict = append(acb.conflict, sql.ConflictColumns(columns...))
 	return &ActivityUpsertBulk{
@@ -507,7 +501,6 @@ type ActivityUpsertBulk struct {
 //			sql.ResolveWithNewValues(),
 //		).
 //		Exec(ctx)
-//
 func (u *ActivityUpsertBulk) UpdateNewValues() *ActivityUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
 	return u
@@ -519,7 +512,6 @@ func (u *ActivityUpsertBulk) UpdateNewValues() *ActivityUpsertBulk {
 //	client.Activity.Create().
 //		OnConflict(sql.ResolveWithIgnore()).
 //		Exec(ctx)
-//
 func (u *ActivityUpsertBulk) Ignore() *ActivityUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
 	return u
@@ -555,24 +547,24 @@ func (u *ActivityUpsertBulk) UpdateUsername() *ActivityUpsertBulk {
 	})
 }
 
-// SetActivity sets the "activity" field.
-func (u *ActivityUpsertBulk) SetActivity(v int64) *ActivityUpsertBulk {
+// SetDuration sets the "duration" field.
+func (u *ActivityUpsertBulk) SetDuration(v int64) *ActivityUpsertBulk {
 	return u.Update(func(s *ActivityUpsert) {
-		s.SetActivity(v)
+		s.SetDuration(v)
 	})
 }
 
-// AddActivity adds v to the "activity" field.
-func (u *ActivityUpsertBulk) AddActivity(v int64) *ActivityUpsertBulk {
+// AddDuration adds v to the "duration" field.
+func (u *ActivityUpsertBulk) AddDuration(v int64) *ActivityUpsertBulk {
 	return u.Update(func(s *ActivityUpsert) {
-		s.AddActivity(v)
+		s.AddDuration(v)
 	})
 }
 
-// UpdateActivity sets the "activity" field to the value that was provided on create.
-func (u *ActivityUpsertBulk) UpdateActivity() *ActivityUpsertBulk {
+// UpdateDuration sets the "duration" field to the value that was provided on create.
+func (u *ActivityUpsertBulk) UpdateDuration() *ActivityUpsertBulk {
 	return u.Update(func(s *ActivityUpsert) {
-		s.UpdateActivity()
+		s.UpdateDuration()
 	})
 }
 

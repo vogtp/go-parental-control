@@ -13,8 +13,8 @@ import (
 func init() {
 	activityFields := schema.Activity{}.Fields()
 	_ = activityFields
-	// activityDescActivity is the schema descriptor for activity field.
-	activityDescActivity := activityFields[1].Descriptor()
-	// activity.DefaultActivity holds the default value on creation for the activity field.
-	activity.DefaultActivity = activityDescActivity.Default.(int64)
+	// activityDescDuration is the schema descriptor for duration field.
+	activityDescDuration := activityFields[1].Descriptor()
+	// activity.DefaultDuration holds the default value on creation for the duration field.
+	activity.DefaultDuration = activityDescDuration.Default.(int64)
 }

@@ -58,7 +58,7 @@ func (s *Service) printSessions(ctx context.Context, w io.Writer) {
 			continue
 		}
 		for _, act := range acts {
-			d := time.Duration(act.Activity).Truncate(time.Second)
+			d := time.Duration(act.Duration).Truncate(time.Second)
 			fmt.Fprintf(w, "  %-20s %v\n", act.Username, d)
 		}
 	}

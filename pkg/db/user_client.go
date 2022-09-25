@@ -25,7 +25,7 @@ func (uc *UserClient) AddTime(ctx context.Context, usr string, delta time.Durati
 	if err != nil {
 		return fmt.Errorf("cannot get user activit for %v.%v.%v: %w", now.Year(), now.Month(), now.Day(), err)
 	}
-	_, err = act.Update().SetActivity(act.Activity + int64(delta)).Save(ctx)
+	_, err = act.Update().SetDuration(act.Duration + int64(delta)).Save(ctx)
 	return err
 }
 

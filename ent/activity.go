@@ -17,8 +17,8 @@ type Activity struct {
 	ID int `json:"id,omitempty"`
 	// Username holds the value of the "username" field.
 	Username string `json:"username,omitempty"`
-	// Activity holds the value of the "activity" field.
-	Activity     int64 `json:"activity,omitempty"`
+	// Duration holds the value of the "duration" field.
+	Duration     int64 `json:"duration,omitempty"`
 	day_activity *int
 }
 
@@ -27,7 +27,7 @@ func (*Activity) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case activity.FieldID, activity.FieldActivity:
+		case activity.FieldID, activity.FieldDuration:
 			values[i] = new(sql.NullInt64)
 		case activity.FieldUsername:
 			values[i] = new(sql.NullString)
@@ -60,11 +60,11 @@ func (a *Activity) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				a.Username = value.String
 			}
-		case activity.FieldActivity:
+		case activity.FieldDuration:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field activity", values[i])
+				return fmt.Errorf("unexpected type %T for field duration", values[i])
 			} else if value.Valid {
-				a.Activity = value.Int64
+				a.Duration = value.Int64
 			}
 		case activity.ForeignKeys[0]:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -104,8 +104,8 @@ func (a *Activity) String() string {
 	builder.WriteString("username=")
 	builder.WriteString(a.Username)
 	builder.WriteString(", ")
-	builder.WriteString("activity=")
-	builder.WriteString(fmt.Sprintf("%v", a.Activity))
+	builder.WriteString("duration=")
+	builder.WriteString(fmt.Sprintf("%v", a.Duration))
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -35,8 +35,8 @@ type ActivityMutation struct {
 	typ           string
 	id            *int
 	username      *string
-	activity      *int64
-	addactivity   *int64
+	duration      *int64
+	addduration   *int64
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*Activity, error)
@@ -177,60 +177,60 @@ func (m *ActivityMutation) ResetUsername() {
 	m.username = nil
 }
 
-// SetActivity sets the "activity" field.
-func (m *ActivityMutation) SetActivity(i int64) {
-	m.activity = &i
-	m.addactivity = nil
+// SetDuration sets the "duration" field.
+func (m *ActivityMutation) SetDuration(i int64) {
+	m.duration = &i
+	m.addduration = nil
 }
 
-// Activity returns the value of the "activity" field in the mutation.
-func (m *ActivityMutation) Activity() (r int64, exists bool) {
-	v := m.activity
+// Duration returns the value of the "duration" field in the mutation.
+func (m *ActivityMutation) Duration() (r int64, exists bool) {
+	v := m.duration
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldActivity returns the old "activity" field's value of the Activity entity.
+// OldDuration returns the old "duration" field's value of the Activity entity.
 // If the Activity object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ActivityMutation) OldActivity(ctx context.Context) (v int64, err error) {
+func (m *ActivityMutation) OldDuration(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldActivity is only allowed on UpdateOne operations")
+		return v, errors.New("OldDuration is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldActivity requires an ID field in the mutation")
+		return v, errors.New("OldDuration requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldActivity: %w", err)
+		return v, fmt.Errorf("querying old value for OldDuration: %w", err)
 	}
-	return oldValue.Activity, nil
+	return oldValue.Duration, nil
 }
 
-// AddActivity adds i to the "activity" field.
-func (m *ActivityMutation) AddActivity(i int64) {
-	if m.addactivity != nil {
-		*m.addactivity += i
+// AddDuration adds i to the "duration" field.
+func (m *ActivityMutation) AddDuration(i int64) {
+	if m.addduration != nil {
+		*m.addduration += i
 	} else {
-		m.addactivity = &i
+		m.addduration = &i
 	}
 }
 
-// AddedActivity returns the value that was added to the "activity" field in this mutation.
-func (m *ActivityMutation) AddedActivity() (r int64, exists bool) {
-	v := m.addactivity
+// AddedDuration returns the value that was added to the "duration" field in this mutation.
+func (m *ActivityMutation) AddedDuration() (r int64, exists bool) {
+	v := m.addduration
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ResetActivity resets all changes to the "activity" field.
-func (m *ActivityMutation) ResetActivity() {
-	m.activity = nil
-	m.addactivity = nil
+// ResetDuration resets all changes to the "duration" field.
+func (m *ActivityMutation) ResetDuration() {
+	m.duration = nil
+	m.addduration = nil
 }
 
 // Where appends a list predicates to the ActivityMutation builder.
@@ -256,8 +256,8 @@ func (m *ActivityMutation) Fields() []string {
 	if m.username != nil {
 		fields = append(fields, activity.FieldUsername)
 	}
-	if m.activity != nil {
-		fields = append(fields, activity.FieldActivity)
+	if m.duration != nil {
+		fields = append(fields, activity.FieldDuration)
 	}
 	return fields
 }
@@ -269,8 +269,8 @@ func (m *ActivityMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case activity.FieldUsername:
 		return m.Username()
-	case activity.FieldActivity:
-		return m.Activity()
+	case activity.FieldDuration:
+		return m.Duration()
 	}
 	return nil, false
 }
@@ -282,8 +282,8 @@ func (m *ActivityMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case activity.FieldUsername:
 		return m.OldUsername(ctx)
-	case activity.FieldActivity:
-		return m.OldActivity(ctx)
+	case activity.FieldDuration:
+		return m.OldDuration(ctx)
 	}
 	return nil, fmt.Errorf("unknown Activity field %s", name)
 }
@@ -300,12 +300,12 @@ func (m *ActivityMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUsername(v)
 		return nil
-	case activity.FieldActivity:
+	case activity.FieldDuration:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetActivity(v)
+		m.SetDuration(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Activity field %s", name)
@@ -315,8 +315,8 @@ func (m *ActivityMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *ActivityMutation) AddedFields() []string {
 	var fields []string
-	if m.addactivity != nil {
-		fields = append(fields, activity.FieldActivity)
+	if m.addduration != nil {
+		fields = append(fields, activity.FieldDuration)
 	}
 	return fields
 }
@@ -326,8 +326,8 @@ func (m *ActivityMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *ActivityMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case activity.FieldActivity:
-		return m.AddedActivity()
+	case activity.FieldDuration:
+		return m.AddedDuration()
 	}
 	return nil, false
 }
@@ -337,12 +337,12 @@ func (m *ActivityMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *ActivityMutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case activity.FieldActivity:
+	case activity.FieldDuration:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddActivity(v)
+		m.AddDuration(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Activity numeric field %s", name)
@@ -374,8 +374,8 @@ func (m *ActivityMutation) ResetField(name string) error {
 	case activity.FieldUsername:
 		m.ResetUsername()
 		return nil
-	case activity.FieldActivity:
-		m.ResetActivity()
+	case activity.FieldDuration:
+		m.ResetDuration()
 		return nil
 	}
 	return fmt.Errorf("unknown Activity field %s", name)
