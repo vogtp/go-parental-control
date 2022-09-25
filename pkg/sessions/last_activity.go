@@ -11,6 +11,7 @@ import (
 
 	"github.com/vogtp/go-hcl"
 	"github.com/vogtp/go-parental-control/ent"
+	"github.com/vogtp/go-parental-control/pkg/user"
 )
 
 const ActivtiyPage = "/activity"
@@ -31,7 +32,8 @@ func (uar UserActivityReport) Duration() time.Duration {
 }
 
 func checkActivityExcced(act *ent.Activity) bool {
-	return time.Duration(act.Duration) > time.Hour
+	allowed := user.GetAllowedDuration(act.Username)
+	return time.Duration(act.Duration) > allowed.Today()
 }
 
 func (s *Service) handleLastActivity(w http.ResponseWriter, r *http.Request) {
