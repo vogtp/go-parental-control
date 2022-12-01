@@ -40,7 +40,7 @@ func (v VersionInfo) IsNewer(o VersionInfo) bool {
 }
 
 var (
-	// BuildInfo contains the build timestamp
+	// BuildInfo contains the build timestamp (if compiled)
 	BuildInfo = "development"
 	// Version info
 	Version = VersionInfo{
