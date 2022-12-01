@@ -6,6 +6,7 @@ import (
 
 	"github.com/vogtp/go-parental-control/ent"
 	_ "modernc.org/sqlite"
+	 _ "github.com/xiaoqidun/entps"
 )
 
 type Access struct {

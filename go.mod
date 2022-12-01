@@ -14,6 +14,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.12.0
 	github.com/vogtp/go-hcl v0.3.0
+	github.com/xiaoqidun/entps v0.0.0-20221129152223-0768b98b194f
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.20.0
 )
