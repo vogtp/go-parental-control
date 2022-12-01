@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	_ "github.com/mattn/go-sqlite3"
 	"github.com/vogtp/go-parental-control/ent"
+	_ "modernc.org/sqlite"
 )
 
 type Access struct {
